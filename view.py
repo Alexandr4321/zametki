@@ -17,10 +17,11 @@ def print_message(message:str):
 
 def print_contact(pb:list[dict[str,str]], error:str):
     if pb:
-        print('\n'+'='*71)
+        print('='*79)
         for i,contact in enumerate(pb,1):
-            print(f'{i:>3}. {contact.get("name"):<20} |{contact.get("phone"):<20} |{contact.get("comment"):<20} |')
-        print('='*71+'\n')
+            
+            print(f'{i:>3}. {contact.get("name"):<20} |{contact.get("telo"):<20} |{contact.get("time"):<20} |')
+            print('='*79)
     else:
         print_message(error)
 
@@ -30,9 +31,13 @@ def input_contact(message) -> dict[str, str]:
     new = {}
     print(message)
     for key, txt in text.new_contact.items():
-        value = input(txt)
+        if key=='time':
+            value=str(text.now)
+        elif key != 'time':
+            value = input(txt)
         if value:
             new[key] = value
+        
     return new
 
 

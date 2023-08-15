@@ -1,6 +1,6 @@
 class PhoneBook :
 
-    def __init__(self, path:str='phones.txt'):
+    def __init__(self, path:str='zametki.txt'):
         self.phone_book: list[dict[str,str]]= []
         self.path=path
         self.last_id=0
@@ -9,13 +9,13 @@ class PhoneBook :
         with open(self.path,'r' , encoding='UTF-8') as file:
             data = file.readlines()
         for contact in data:
-            contact=contact.strip().split(':')
-            self.phone_book.append({'name':contact[0], 'phone':contact[1], 'comment':contact[2]})
+            contact=contact.strip().split(';')
+            self.phone_book.append({'name':contact[0], 'telo':contact[1], 'time': contact[2]})
 
     def save(self):
         data=[]
         for contact in self.phone_book:
-            contact=':'.join(value for value in contact.values())
+            contact=';'.join(value for value in contact.values())
             data.append(contact)
         with open(self.path,'w', encoding='utf-8') as file:
             file.write('\n'.join(data))
@@ -47,6 +47,6 @@ class PhoneBook :
         for contact in self.phone_book:
             if index==contact.get('id'):
                 contact['name']=new.get('name', contact.get('name'))
-                contact['phone']=new.get('phone', contact.get('phone'))
-                contact['comment']=new.get('comment', contact.get('comment'))
+                contact['telo']=new.get('telo', contact.get('telo'))
+                contact['time']=new.get('time', contact.get('time'))
                 return contact.get('name')
